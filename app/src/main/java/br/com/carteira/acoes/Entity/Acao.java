@@ -1,5 +1,7 @@
 package br.com.carteira.acoes.Entity;
 
+import android.util.Log;
+
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -9,6 +11,8 @@ import java.io.IOException;
  * Created by lucas.coelho.dutra on 16/10/2015.
  */
 public class Acao {
+
+    private static final String TAG = "Acao";
 
     private static final String CODIGO = "Codigo";
     private static final String NOME = "Nome";
@@ -43,9 +47,9 @@ public class Acao {
     }
 
     public static Acao createAcao(XmlPullParser parser) {
+        Acao acao = Acao.createAcao();
         try{
             parser.require(XmlPullParser.START_TAG, ns, PAPEL);
-            Acao acao = Acao.createAcao();
             acao.setCodigo(readCampo(parser, CODIGO));
             acao.setNome(readCampo(parser, NOME));
             acao.setBovespa(readCampo(parser, IBOVESPA));
@@ -56,13 +60,20 @@ public class Acao {
             acao.setMedio(readCampo(parser, MEDIO));
             acao.setUltimo(readCampo(parser, ULTIMO));
             acao.setOscilacao(readCampo(parser, OSCILACAO));
-            return acao;
-
         }catch (Exception e){
-            return null;
+            Log.i(TAG, e.getMessage());
         }
+        return acao;
     }
 
+    /**
+     * Método responsável por recuperar o valor do campo
+     * @param parser
+     * @param campo
+     * @return Valor do campo
+     * @throws IOException
+     * @throws XmlPullParserException
+     */
     private static String readCampo(XmlPullParser parser, String campo) throws IOException, XmlPullParserException {
         return parser.getAttributeValue(null, campo);
     }
@@ -72,7 +83,7 @@ public class Acao {
         return Codigo;
     }
 
-    public void setCodigo(String codigo) {
+    private void setCodigo(String codigo) {
         Codigo = codigo;
     }
 
@@ -80,7 +91,7 @@ public class Acao {
         return Nome;
     }
 
-    public void setNome(String nome) {
+    private void setNome(String nome) {
         Nome = nome;
     }
 
@@ -88,7 +99,7 @@ public class Acao {
         return Bovespa;
     }
 
-    public void setBovespa(String bovespa) {
+    private void setBovespa(String bovespa) {
         Bovespa = bovespa;
     }
 
@@ -96,7 +107,7 @@ public class Acao {
         return Data;
     }
 
-    public void setData(String data) {
+    private void setData(String data) {
         Data = data;
     }
 
@@ -104,7 +115,7 @@ public class Acao {
         return Abertura;
     }
 
-    public void setAbertura(String abertura) {
+    private void setAbertura(String abertura) {
         Abertura = abertura;
     }
 
@@ -112,7 +123,7 @@ public class Acao {
         return Minimo;
     }
 
-    public void setMinimo(String minimo) {
+    private void setMinimo(String minimo) {
         Minimo = minimo;
     }
 
@@ -120,7 +131,7 @@ public class Acao {
         return Maximo;
     }
 
-    public void setMaximo(String maximo) {
+    private void setMaximo(String maximo) {
         Maximo = maximo;
     }
 
@@ -128,7 +139,7 @@ public class Acao {
         return Medio;
     }
 
-    public void setMedio(String medio) {
+    private void setMedio(String medio) {
         Medio = medio;
     }
 
@@ -136,7 +147,7 @@ public class Acao {
         return Ultimo;
     }
 
-    public void setUltimo(String ultimo) {
+    private void setUltimo(String ultimo) {
         Ultimo = ultimo;
     }
 
@@ -144,7 +155,7 @@ public class Acao {
         return Oscilacao;
     }
 
-    public void setOscilacao(String oscilacao) {
+    private void setOscilacao(String oscilacao) {
         Oscilacao = oscilacao;
     }
 }

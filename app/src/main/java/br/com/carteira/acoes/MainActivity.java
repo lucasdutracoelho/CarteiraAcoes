@@ -15,6 +15,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import br.com.carteira.acoes.AsyncTask.DownloadXmlTask;
+import br.com.carteira.acoes.Downloader.DownloaderURL;
 import br.com.carteira.acoes.Entity.Acao;
 import br.com.carteira.acoes.Helper.ConexaoUtils;
 import butterknife.Bind;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Bind(R.id.toolbar) public Toolbar toolbar;
     @Bind(R.id.fab) public FloatingActionButton fab;
+    protected String CONSTANTE_TESTE = "NOK";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void onEvent(List<Acao> acoes) {
 
+        CONSTANTE_TESTE = "OK";
+
         for (Acao item:acoes) {
 
             Log.i(TAG, item.getNome());
@@ -65,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 .setAction("Action", null).show();*/
 
         if(ConexaoUtils.VerificaConexao()){
-            new DownloadXmlTask(this).execute("http://www.bmfbovespa.com.br/Pregao-Online/ExecutaAcaoAjax.asp?CodigoPapel=ABEV3|BBPO11");
+            new DownloadXmlTask(this, new DownloaderURL()).execute("http://www.bmfbovespa.com.br/Pregao-Online/ExecutaAcaoAjax.asp?CodigoPapel=ABEV3|BBPO11");
         }else {
             Toast.makeText(this, "Sem conexão!", Toast.LENGTH_SHORT).show();
         }

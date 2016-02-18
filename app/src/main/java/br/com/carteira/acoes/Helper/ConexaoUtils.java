@@ -20,13 +20,9 @@ public class ConexaoUtils {
                     (ConnectivityManager)  App.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 
-            if(networkInfo != null
+            return networkInfo != null
                     && networkInfo.isAvailable()
-                    && networkInfo.isConnected()){
-                return true;
-            }
-
-            return false;
+                    && networkInfo.isConnected();
         }catch (Exception e){
             Log.i(TAG, e.getMessage());
             return false;

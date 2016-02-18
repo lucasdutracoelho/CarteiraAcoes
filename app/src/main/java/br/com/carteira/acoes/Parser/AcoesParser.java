@@ -16,17 +16,6 @@ import br.com.carteira.acoes.Entity.Acao;
  * Created by lucas.coelho.dutra on 16/10/2015.
  */
 public class AcoesParser {
-    /*
-    private final String CODIGO = "Codigo";
-    private final String NOME = "Nome";
-    private final String IBOVESPA = "Ibovespa";
-    private final String DATA = "Data";
-    private final String ABERTURA = "Abertura";
-    private final String MINIMO = "Minimo";
-    private final String MAXIMO = "Maximo";
-    private final String MEDIO = "Medio";
-    private final String ULTIMO = "Ultimo";
-    private final String OSCILACAO = "Oscilacao";*/
     private static final String ns = null;
     private final String START_TAG = "ComportamentoPapeis";
     private final String PAPEL = "Papel";
@@ -76,7 +65,6 @@ public class AcoesParser {
         return entries;
     }
 
-
     /**
      * Método responsável por recuperar cada Acao
      * @param parser
@@ -85,33 +73,8 @@ public class AcoesParser {
      * @throws IOException
      */
     private Acao readEntry(XmlPullParser parser) throws XmlPullParserException, IOException {
-        /*parser.require(XmlPullParser.START_TAG, ns, PAPEL);
-        Acao acao = Acao.createAcao();
-        acao.setCodigo(readCampo(parser, CODIGO));
-        acao.setNome(readCampo(parser, NOME));
-        acao.setBovespa(readCampo(parser, IBOVESPA));
-        acao.setData(readCampo(parser, DATA));
-        acao.setAbertura(readCampo(parser, ABERTURA));
-        acao.setMinimo(readCampo(parser, MINIMO));
-        acao.setMaximo(readCampo(parser, MAXIMO));
-        acao.setMedio(readCampo(parser, MEDIO));
-        acao.setUltimo(readCampo(parser, ULTIMO));
-        acao.setOscilacao(readCampo(parser, OSCILACAO));*/
         return Acao.createAcao(parser);
     }
-
-    /**
-     * Método responsável por recuperar o valor do campo
-     * @param parser
-     * @param campo
-     * @return Valor do campo
-     * @throws IOException
-     * @throws XmlPullParserException
-     */
-    private String readCampo(XmlPullParser parser, String campo) throws IOException, XmlPullParserException {
-        return parser.getAttributeValue(null, campo);
-    }
-
 
     /**
      * Método responsável por pular o nó

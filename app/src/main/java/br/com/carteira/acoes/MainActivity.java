@@ -10,10 +10,14 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.List;
 
+import br.com.carteira.acoes.Adapters.BaseInflaterAdapter;
+import br.com.carteira.acoes.Adapters.CardItem;
+import br.com.carteira.acoes.Adapters.Inflater.CardInflater;
 import br.com.carteira.acoes.AsyncTask.DownloadXmlTask;
 import br.com.carteira.acoes.Downloader.DownloaderURL;
 import br.com.carteira.acoes.Entity.Acao;
@@ -28,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Bind(R.id.toolbar) public Toolbar toolbar;
     @Bind(R.id.fab) public FloatingActionButton fab;
+    @Bind((R.id.card_listView))ListView cardList;
+    private BaseInflaterAdapter<CardItem> adapter;
     protected String CONSTANTE_TESTE = "NOK";
 
     @Override
@@ -36,6 +42,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
+
+        cardList.addHeaderView(new View(this));
+        cardList.addFooterView(new View(this));
+
+        adapter = new BaseInflaterAdapter<CardItem>(new CardInflater());
+        cardList.setAdapter(adapter);
+
     }
 
     @Override
@@ -53,13 +66,10 @@ public class MainActivity extends AppCompatActivity {
     public void onEvent(List<Acao> acoes) {
 
         CONSTANTE_TESTE = "OK";
+        adapter.clear(false);
+        adapter.addItems(CardItem.createListCardItem(acoes), true);
 
-        for (Acao item:acoes) {
 
-            Log.i(TAG, item.getNome());
-            Toast.makeText(this, item.getNome(), Toast.LENGTH_SHORT).show();
-
-        }
     }
 
     @OnClick(R.id.fab)

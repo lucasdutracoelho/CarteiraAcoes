@@ -15,10 +15,26 @@ import br.com.carteira.acoes.Entity.Acao;
 /**
  * Created by lucas.coelho.dutra on 16/10/2015.
  */
-public class AcoesParser {
+public class AcoesParser implements Parser<Acao>{
     private static final String ns = null;
     private final String START_TAG = "ComportamentoPapeis";
     private final String PAPEL = "Papel";
+
+    /**
+     * Implementação do método da interface
+     * @param in
+     * @return Lista de Ações
+     * @throws ParserException
+     */
+    public  List<Acao> parse(InputStream in) throws ParserException {
+        try {
+            return parseXML(in);
+        }catch (XmlPullParserException xpe){
+            throw new ParserException(xpe.getMessage());
+        }catch (IOException ioe){
+            throw new ParserException(ioe.getMessage());
+        }
+    }
 
     /**
      * Método responsável pelo parse do XML no InputStream
@@ -27,14 +43,15 @@ public class AcoesParser {
      * @throws XmlPullParserException
      * @throws IOException
      */
-    public List<Acao> parse(InputStream in) throws XmlPullParserException, IOException {
+    private List<Acao> parseXML(InputStream in) throws XmlPullParserException, IOException {
         try {
             XmlPullParser parser = Xml.newPullParser();
             parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
             parser.setInput(in, null);
             parser.nextTag();
             return readFeed(parser);
-        } finally {
+        }
+        finally {
             in.close();
         }
     }

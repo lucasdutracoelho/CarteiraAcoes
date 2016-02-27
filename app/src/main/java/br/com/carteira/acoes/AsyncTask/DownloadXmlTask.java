@@ -15,6 +15,9 @@ import java.util.List;
 import br.com.carteira.acoes.Downloader.Downloader;
 import br.com.carteira.acoes.Entity.Acao;
 import br.com.carteira.acoes.Parser.AcoesParser;
+import br.com.carteira.acoes.Parser.FactoryParser;
+import br.com.carteira.acoes.Parser.Parser;
+import br.com.carteira.acoes.Parser.ParserException;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -34,8 +37,10 @@ public class DownloadXmlTask extends AsyncTask<String, Void, List<Acao>> {
         try {
             return loadXmlFromNetwork(urls[0]);
         } catch (IOException e) {
+            Log.i(TAG, e.getMessage());
             return null;
-        } catch (XmlPullParserException e) {
+        }catch (ParserException re){
+            Log.i(TAG, re.getMessage());
             return null;
         }
     }
@@ -45,9 +50,9 @@ public class DownloadXmlTask extends AsyncTask<String, Void, List<Acao>> {
         EventBus.getDefault().post(result);
     }
 
-    private List<Acao> loadXmlFromNetwork(String urlString) throws XmlPullParserException, IOException {
+    private List<Acao> loadXmlFromNetwork(String urlString) throws ParserException, IOException {
         InputStream stream = null;
-        AcoesParser acaoXmlParser = new AcoesParser();
+        Parser acaoXmlParser = FactoryParser.getParser(FactoryParser.TipoParser.AcoesParse);
         List<Acao> entries = null;
         try {
             stream = mDownloader.download(urlString);

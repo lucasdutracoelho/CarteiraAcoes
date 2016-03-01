@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.fab) public FloatingActionButton fab;
     @Bind((R.id.card_listView))ListView cardList;
     private BaseInflaterAdapter<CardItem> adapter;
+    //Constante utilizada para teste
     protected String CONSTANTE_TESTE = "NOK";
 
     @Override

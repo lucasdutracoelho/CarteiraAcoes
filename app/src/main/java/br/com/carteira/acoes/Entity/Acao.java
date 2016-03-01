@@ -2,15 +2,19 @@ package br.com.carteira.acoes.Entity;
 
 import android.util.Log;
 
+import com.j256.ormlite.field.DatabaseField;
+
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 
+import br.com.carteira.acoes.DAO.Utils.Tables;
+
 /**
  * Created by lucas.coelho.dutra on 16/10/2015.
  */
-public class Acao {
+public class Acao implements Entidade{
 
     private static final String TAG = "Acao";
 
@@ -28,26 +32,43 @@ public class Acao {
     private static final String PAPEL = "Papel";
     private static final String ns = null;
 
+    @DatabaseField(id = true)
     private String Codigo;
+    @DatabaseField
     private String Nome;
+    @DatabaseField
     private String Bovespa;
+    @DatabaseField
     private String Data;
+    @DatabaseField
     private String Abertura;
+    @DatabaseField
     private String Minimo;
+    @DatabaseField
     private String Maximo;
+    @DatabaseField
     private String Medio;
+    @DatabaseField
     private String Ultimo;
+    @DatabaseField
     private String Oscilacao;
 
     private Acao() {
     }
 
-    public static Acao createAcao() {
-        return new Acao();
+    @Override
+    public Tables getTableClass() {
+        return Tables.ACAO;
     }
 
+    /**
+     * Método responsável por criar uma acao atraves do XmlPullParser
+     * @param parser
+     * @return Acao
+     * @throws Exception
+     */
     public static Acao createAcao(XmlPullParser parser) {
-        Acao acao = Acao.createAcao();
+        Acao acao = new Acao();
         try{
             parser.require(XmlPullParser.START_TAG, ns, PAPEL);
             acao.setCodigo(readCampo(parser, CODIGO));
@@ -83,7 +104,7 @@ public class Acao {
         return Codigo;
     }
 
-    private void setCodigo(String codigo) {
+    public void setCodigo(String codigo) {
         Codigo = codigo;
     }
 
@@ -91,7 +112,7 @@ public class Acao {
         return Nome;
     }
 
-    private void setNome(String nome) {
+    public void setNome(String nome) {
         Nome = nome;
     }
 
@@ -99,7 +120,7 @@ public class Acao {
         return Bovespa;
     }
 
-    private void setBovespa(String bovespa) {
+    public void setBovespa(String bovespa) {
         Bovespa = bovespa;
     }
 
@@ -107,7 +128,7 @@ public class Acao {
         return Data;
     }
 
-    private void setData(String data) {
+    public void setData(String data) {
         Data = data;
     }
 
@@ -115,7 +136,7 @@ public class Acao {
         return Abertura;
     }
 
-    private void setAbertura(String abertura) {
+    public void setAbertura(String abertura) {
         Abertura = abertura;
     }
 
@@ -123,7 +144,7 @@ public class Acao {
         return Minimo;
     }
 
-    private void setMinimo(String minimo) {
+    public void setMinimo(String minimo) {
         Minimo = minimo;
     }
 
@@ -131,7 +152,7 @@ public class Acao {
         return Maximo;
     }
 
-    private void setMaximo(String maximo) {
+    public void setMaximo(String maximo) {
         Maximo = maximo;
     }
 
@@ -139,7 +160,7 @@ public class Acao {
         return Medio;
     }
 
-    private void setMedio(String medio) {
+    public void setMedio(String medio) {
         Medio = medio;
     }
 
@@ -147,7 +168,7 @@ public class Acao {
         return Ultimo;
     }
 
-    private void setUltimo(String ultimo) {
+    public void setUltimo(String ultimo) {
         Ultimo = ultimo;
     }
 
@@ -155,7 +176,26 @@ public class Acao {
         return Oscilacao;
     }
 
-    private void setOscilacao(String oscilacao) {
+    public void setOscilacao(String oscilacao) {
         Oscilacao = oscilacao;
     }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Acao{");
+        sb.append("Codigo='").append(Codigo).append('\'');
+        sb.append(", Nome='").append(Nome).append('\'');
+        sb.append(", Bovespa='").append(Bovespa).append('\'');
+        sb.append(", Data='").append(Data).append('\'');
+        sb.append(", Abertura='").append(Abertura).append('\'');
+        sb.append(", Minimo='").append(Minimo).append('\'');
+        sb.append(", Maximo='").append(Maximo).append('\'');
+        sb.append(", Medio='").append(Medio).append('\'');
+        sb.append(", Ultimo='").append(Ultimo).append('\'');
+        sb.append(", Oscilacao='").append(Oscilacao).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
+
+
 }

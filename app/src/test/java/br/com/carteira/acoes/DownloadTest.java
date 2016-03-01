@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 /**
  * To work on unit tests, switch the Test Artifact in the Build Variants view.
  */
-public class DownloadTest {
+public class DownloadTest extends BaseTest{
 
     @Test
     public void DownloadURLValido() throws Exception {

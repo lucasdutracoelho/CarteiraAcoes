@@ -3,4 +3,8 @@
     <string name="action_settings">Settings</string>
     <string name="connection_error">Ops... Problema com a conexão.</string>
     <string name="xml_error">Erro ao transformar os dados.</string>
+
+    <!-- Strings related to DAO -->
+    <string name="msg_erro_sql_unknown">Uma exceção SQL desconhecida ocorreu durante a execução de um comando básico SQL!</string>
+    <string name="msg_erro_create_dao">Não foi possível criar uma instância do DAO</string>
 </resources>

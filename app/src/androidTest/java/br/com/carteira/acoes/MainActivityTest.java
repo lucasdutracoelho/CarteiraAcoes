@@ -34,4 +34,9 @@ public class MainActivityTest {
         onView(withId(R.id.fab)).perform(click());
         Assert.assertEquals("OK", mActivityRule.getActivity().CONSTANTE_TESTE);
     }
+
+    @Test
+    public  void ListaPreenchida(){
+        Assert.assertTrue(mActivityRule.getActivity().cardList.getAdapter().getCount() > 0);
+    }
 }

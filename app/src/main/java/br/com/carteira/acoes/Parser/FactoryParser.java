@@ -6,14 +6,14 @@ package br.com.carteira.acoes.Parser;
 public class FactoryParser {
 
     public enum TipoParser{
-        AcoesParse;
+        AcaoParserYahoo;
     }
 
     public static Parser getParser(TipoParser parser) throws ParserException {
 
         switch (parser){
-            case AcoesParse:
-                return new AcoesParser();
+            case AcaoParserYahoo:
+                return new AcaoParserYahoo();
         }
         throw new ParserException("Não foi possível localizar uma implementação para o Parser");
     }

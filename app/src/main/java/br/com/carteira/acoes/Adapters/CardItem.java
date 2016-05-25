@@ -25,7 +25,7 @@ public class CardItem {
     public static List<CardItem> createListCardItem(List<Acao> listaAcoes) {
         List<CardItem> cardsItem = new ArrayList<CardItem>();
         for (Acao acao: listaAcoes) {
-            cardsItem.add(new CardItem(acao.getNome(), acao.getOscilacao()));
+            cardsItem.add(new CardItem(acao.getNome(), acao.getUltimo()));
         }
         return  cardsItem;
     }

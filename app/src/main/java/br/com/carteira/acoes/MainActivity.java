@@ -1,9 +1,7 @@
 package br.com.carteira.acoes;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -18,7 +16,7 @@ import java.util.List;
 import br.com.carteira.acoes.Adapters.BaseInflaterAdapter;
 import br.com.carteira.acoes.Adapters.CardItem;
 import br.com.carteira.acoes.Adapters.Inflater.CardInflater;
-import br.com.carteira.acoes.AsyncTask.DownloadXmlTask;
+import br.com.carteira.acoes.AsyncTask.DownloadTask;
 import br.com.carteira.acoes.Downloader.DownloaderURL;
 import br.com.carteira.acoes.Entity.Acao;
 import br.com.carteira.acoes.Helper.ConexaoUtils;
@@ -79,8 +77,8 @@ public class MainActivity extends AppCompatActivity {
         /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();*/
 
-        if(ConexaoUtils.VerificaConexao()){
-            new DownloadXmlTask(this, new DownloaderURL()).execute("http://www.bmfbovespa.com.br/Pregao-Online/ExecutaAcaoAjax.asp?CodigoPapel=ABEV3|BBPO11");
+        if(ConexaoUtils.verificaConexao()){
+            new DownloadTask(this, new DownloaderURL()).execute("http://finance.yahoo.com/webservice/v1/symbols/PETR4.SA,BBAS3.SA/quote?format=json&view=detail");
         }else {
             Toast.makeText(this, "Sem conexão!", Toast.LENGTH_SHORT).show();
         }

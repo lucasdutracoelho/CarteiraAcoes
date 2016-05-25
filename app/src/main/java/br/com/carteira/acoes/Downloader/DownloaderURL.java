@@ -5,22 +5,23 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 /**
  * Created by lucas.coelho.dutra on 18/02/2016.
  */
 public class DownloaderURL implements Downloader {
-    @Override
+    private OkHttpClient client = new OkHttpClient();
+
     public InputStream download(String url) throws IOException {
         if(url == null) return null;
-        URL endereco = new URL(url);
-        HttpURLConnection conn = (HttpURLConnection) endereco.openConnection();
-        conn.setReadTimeout(10000 /* milliseconds */);
-        conn.setConnectTimeout(15000 /* milliseconds */);
-        conn.setRequestMethod("GET");
-        conn.setDoInput(true);
-        // Starts the query
-        conn.connect();
-        InputStream stream = conn.getInputStream();
-        return stream;
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+
+        Response response = client.newCall(request).execute();
+        return response.body().byteStream();
     }
 }

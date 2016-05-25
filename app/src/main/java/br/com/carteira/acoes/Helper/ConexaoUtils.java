@@ -14,7 +14,7 @@ import br.com.carteira.acoes.App;
 public class ConexaoUtils {
     private static final String TAG = "ConexaoUtils";
 
-    public static boolean VerificaConexao(){
+    public static boolean verificaConexao(){
         try {
             ConnectivityManager connMgr =
                     (ConnectivityManager)  App.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);

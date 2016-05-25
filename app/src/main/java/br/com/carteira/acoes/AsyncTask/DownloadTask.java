@@ -42,7 +42,12 @@ public class DownloadTask extends AsyncTask<String, Void, List<Acao>> {
 
     @Override
     protected void onPostExecute(List<Acao> result) {
-        EventBus.getDefault().post(result);
+        //// TODO: 25/05/2016 Analisar alternativa para AsyncTask, pensar na possibilidade de usar AndroidAnnotations 
+        try{
+            EventBus.getDefault().post(result);
+        }catch (Exception e){
+            Log.i(TAG, e.getMessage());
+        }
     }
 
     private List<Acao> loadFromNetwork(String urlString) throws ParserException, IOException {
